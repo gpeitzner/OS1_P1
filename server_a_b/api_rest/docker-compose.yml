@@ -7,5 +7,9 @@ services:
     volumes:
       - .:/code
       - /proc/:/procs/
+    links:
+      - db
     environment:
       FLASK_ENV: development
+  db:
+    image: mongo:latest

@@ -1,13 +1,18 @@
-import time
-
-from flask import Flask
+import os
+from flask import Flask, jsonify
+from pymongo import MongoClient
 
 app = Flask(__name__)
+client = MongoClient('db', 27017)
+db = client.tododb
 
 
-@app.route('/')
-def hello():
+@app.route('/usage')
+def usage():
     f = open("/procs/so_info", "r")
-    response = f.read()
+    response = str(f.read()).split(";")
     f.close()
-    return response
+    return jsonify({
+        "ram": response[0],
+        "cpu": response[1]
+    })
