@@ -8,10 +8,12 @@
 
 static int my_proc_show(struct seq_file *m, void *v){
     struct sysinfo i;
-	int ram_usage; 
+	long available;
+	long ram_usage; 
     si_meminfo(&i);
-	ram_usage = 100 - ((i.totalram - i.freeram)* 100)/(i.totalram) ;
-    seq_printf(m, "{ram:%d}", ram_usage);
+	available = si_mem_available();
+	ram_usage = ((i.totalram - available - i.bufferram)* 100)/(i.totalram) ;
+    seq_printf(m, "%ld;25", ram_usage);
     return 0;
 }
 
