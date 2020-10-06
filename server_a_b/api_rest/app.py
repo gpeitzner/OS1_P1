@@ -1,9 +1,11 @@
 import os
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from pymongo import MongoClient
 from datetime import datetime
 
 app = Flask(__name__)
+CORS(app)
 client = MongoClient('db', 27017)
 db = client.tododb
 
