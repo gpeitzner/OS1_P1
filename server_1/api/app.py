@@ -6,7 +6,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-serverA = "http://3.16.162.166:5000/"
+serverA = "http://18.222.150.51:5000/"
 serverB = "http://3.14.28.178:5000/"
 
 
