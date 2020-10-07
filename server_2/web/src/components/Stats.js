@@ -21,7 +21,7 @@ function Stats() {
    * Getting data from API
    */
   function getServer1Data() {
-    fetch("http://18.188.146.17:5000/usage")
+    fetch("http://3.16.162.166:5000/usage")
       .then((results) => results.json())
       .then((results) => {
         setServer1RamMetrics((prevState) => {
@@ -60,7 +60,7 @@ function Stats() {
       .catch((err) => console.log(err));
   }
   function getServer2Data() {
-    fetch("http://52.15.159.171:5000/usage")
+    fetch("http://3.14.28.178:5000/usage")
       .then((results) => results.json())
       .then((results) => {
         setServer2RamMetrics((prevState) => {

@@ -19,7 +19,7 @@ class Publications extends React.Component {
   }
 
   getServerAData() {
-    fetch("http://18.188.146.17:5000/sentence")
+    fetch("http://3.16.162.166:5000/sentence")
       .then((results) => results.json())
       .then((results) => {
         const newPublications = results.map((result) => {
@@ -43,7 +43,7 @@ class Publications extends React.Component {
   }
 
   getServerBData() {
-    fetch("http://52.15.159.171:5000/sentence")
+    fetch("http://3.14.28.178:5000/sentence")
       .then((results) => results.json())
       .then((results) => {
         const newPublications = results.map((result) => {
