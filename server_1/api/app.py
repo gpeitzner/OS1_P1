@@ -17,8 +17,14 @@ def add_sentence():
         "sentence": request.json["sentence"]
     }
     r_server1 = requests.get(serverA+"usage")
-    r_dictionary_server1 = r_server1.json()
     r_server2 = requests.get(serverB+"usage")
+    if r_server1.status_code == 404:
+        r = requests.post(serverB+"sentence", json=sentence)
+        return jsonify({"server": "B", "filter": "down", "data": r.json()})
+    if r_server2.status_code == 404:
+        r = requests.post(serverA+"sentence", json=sentence)
+        return jsonify({"server": "A", "filter": "down", "data": r.json()})
+    r_dictionary_server1 = r_server1.json()
     r_dictionary_server2 = r_server2.json()
     if r_dictionary_server1["database"] > r_dictionary_server2["database"]:
         r = requests.post(serverB+"sentence", json=sentence)
