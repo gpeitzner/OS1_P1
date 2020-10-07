@@ -2,7 +2,7 @@ import requests
 import random
 
 data = []
-load_balancer_address = None
+load_balancer_address = "http://so1-1607494048.us-east-2.elb.amazonaws.com:4999/sentence"
 users = ["User1", "User2", "User3", "User4", "User5"]
 
 
