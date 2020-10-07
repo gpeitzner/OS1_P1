@@ -17,6 +17,9 @@ function Stats() {
   const [server1CpuMetrics, setServer1CpuMetrics] = useState([]);
   const [server2CpuMetrics, setServer2CpuMetrics] = useState([]);
 
+  /**
+   * Getting data from API
+   */
   function getServer1Data() {
     fetch("http://18.188.146.17:5000/usage")
       .then((results) => results.json())
@@ -36,6 +39,23 @@ function Stats() {
             return tmp;
           } else {
             return [[0, parseInt(results.ram)]];
+          }
+        });
+        setServer1CpuMetrics((prevState) => {
+          if (prevState.length > 0) {
+            const tmp = [...prevState];
+            if (prevState.length === 10) {
+              for (let i = 0; i < tmp.length - 1; i++) {
+                tmp[i][1] = tmp[i + 1][1];
+              }
+              tmp[9] = [9, parseInt(results.cpu)];
+              console.log(tmp);
+            } else {
+              tmp.push([tmp.length, parseInt(results.cpu)]);
+            }
+            return tmp;
+          } else {
+            return [[0, parseInt(results.cpu)]];
           }
         });
       })
@@ -61,10 +81,30 @@ function Stats() {
             return [[0, parseInt(results.ram)]];
           }
         });
+        setServer2CpuMetrics((prevState) => {
+          if (prevState.length > 0) {
+            const tmp = [...prevState];
+            if (prevState.length === 10) {
+              for (let i = 0; i < tmp.length - 1; i++) {
+                tmp[i][1] = tmp[i + 1][1];
+              }
+              tmp[9] = [9, parseInt(results.cpu)];
+              console.log(tmp);
+            } else {
+              tmp.push([tmp.length, parseInt(results.cpu)]);
+            }
+            return tmp;
+          } else {
+            return [[0, parseInt(results.cpu)]];
+          }
+        });
       })
       .catch((err) => console.log(err));
   }
 
+  /**
+   * Start setup
+   */
   useEffect(() => {
     getServer1Data();
     getServer2Data();
@@ -72,6 +112,9 @@ function Stats() {
     setInterval(getServer2Data, 1000);
   }, []);
 
+  /**
+   * RAM Graph
+   */
   const ramData = React.useMemo(
     () => [
       {
@@ -85,7 +128,6 @@ function Stats() {
     ],
     [server1RamMetrics, server2RamMetrics]
   );
-
   const ramAxes = React.useMemo(
     () => [
       {
@@ -100,7 +142,6 @@ function Stats() {
     ],
     []
   );
-
   const ramChart = (
     <div
       style={{
@@ -111,6 +152,48 @@ function Stats() {
       <Chart data={ramData} axes={ramAxes} />
     </div>
   );
+
+  /**
+   *CPU Graph
+   */
+  const cpuData = React.useMemo(
+    () => [
+      {
+        label: "Series 1",
+        data: server1CpuMetrics,
+      },
+      {
+        label: "Series 2",
+        data: server2CpuMetrics,
+      },
+    ],
+    [server1CpuMetrics, server2CpuMetrics]
+  );
+  const cpuAxes = React.useMemo(
+    () => [
+      {
+        primary: true,
+        type: "linear",
+        position: "bottom",
+        hardMin: 0,
+        hardMax: 9.1,
+        show: false,
+      },
+      { type: "linear", position: "left", hardMin: 0, hardMax: 100 },
+    ],
+    []
+  );
+  const cpuChart = (
+    <div
+      style={{
+        width: "400px",
+        height: "300px",
+      }}
+    >
+      <Chart data={cpuData} axes={cpuAxes} />
+    </div>
+  );
+
   return (
     <Row className="m-4">
       <Col sm>
@@ -129,6 +212,17 @@ function Stats() {
       </Col>
       <Col sm>
         <h1>CPU</h1>
+        <div>{cpuChart}</div>
+        <p>
+          <strong style={{ color: "#6ab4e9" }}>Server A:</strong>
+          {server1CpuMetrics.length > 0 &&
+            " " + server1CpuMetrics[server1CpuMetrics.length - 1][1] + "%"}
+        </p>
+        <p>
+          <strong style={{ color: "#e2756c" }}>Server B:</strong>
+          {server2CpuMetrics.length > 0 &&
+            " " + server2CpuMetrics[server2CpuMetrics.length - 1][1] + "%"}
+        </p>
       </Col>
     </Row>
   );
