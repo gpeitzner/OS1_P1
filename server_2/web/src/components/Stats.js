@@ -32,7 +32,6 @@ function Stats() {
                 tmp[i][1] = tmp[i + 1][1];
               }
               tmp[9] = [9, parseInt(results.ram)];
-              console.log(tmp);
             } else {
               tmp.push([tmp.length, parseInt(results.ram)]);
             }
@@ -49,7 +48,6 @@ function Stats() {
                 tmp[i][1] = tmp[i + 1][1];
               }
               tmp[9] = [9, parseInt(results.cpu)];
-              console.log(tmp);
             } else {
               tmp.push([tmp.length, parseInt(results.cpu)]);
             }
@@ -89,7 +87,6 @@ function Stats() {
                 tmp[i][1] = tmp[i + 1][1];
               }
               tmp[9] = [9, parseInt(results.cpu)];
-              console.log(tmp);
             } else {
               tmp.push([tmp.length, parseInt(results.cpu)]);
             }
@@ -197,7 +194,7 @@ function Stats() {
   return (
     <Row className="m-4">
       <Col sm>
-        <h1>RAM</h1>
+        <h3>RAM</h3>
         <div>{ramChart}</div>
         <p>
           <strong style={{ color: "#6ab4e9" }}>Server A:</strong>
@@ -211,7 +208,7 @@ function Stats() {
         </p>
       </Col>
       <Col sm>
-        <h1>CPU</h1>
+        <h3>CPU</h3>
         <div>{cpuChart}</div>
         <p>
           <strong style={{ color: "#6ab4e9" }}>Server A:</strong>
