@@ -68,7 +68,7 @@ class Publications extends React.Component {
 
   handleChange(event) {
     this.setState({ value: event.target.value });
-    if (event.target.value === "ServidorA") {
+    if (event.target.value === "serverA") {
       this.getServerAData();
     } else {
       this.getServerBData();
@@ -91,8 +91,8 @@ class Publications extends React.Component {
               onChange={this.handleChange}
               className="ml-5"
             >
-              <option value="ServidorA">Servidor A</option>
-              <option value="ServidorB">Servidor B</option>
+              <option value="serverA">Server A</option>
+              <option value="serverB">Server B</option>
             </select>
           </Row>
           {this.state.publications}
