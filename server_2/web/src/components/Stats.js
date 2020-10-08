@@ -47,13 +47,21 @@ function Stats() {
               for (let i = 0; i < tmp.length - 1; i++) {
                 tmp[i][1] = tmp[i + 1][1];
               }
-              tmp[9] = [9, parseInt(results.cpu)];
+              tmp[9] = [
+                9,
+                parseInt(results.cpu) > 100 ? 100 : parseInt(results.cpu),
+              ];
             } else {
-              tmp.push([tmp.length, parseInt(results.cpu)]);
+              tmp.push([
+                tmp.length,
+                parseInt(results.cpu) > 100 ? 100 : parseInt(results.cpu),
+              ]);
             }
             return tmp;
           } else {
-            return [[0, parseInt(results.cpu)]];
+            return [
+              [0, parseInt(results.cpu) > 100 ? 100 : parseInt(results.cpu)],
+            ];
           }
         });
       })
@@ -86,13 +94,21 @@ function Stats() {
               for (let i = 0; i < tmp.length - 1; i++) {
                 tmp[i][1] = tmp[i + 1][1];
               }
-              tmp[9] = [9, parseInt(results.cpu)];
+              tmp[9] = [
+                9,
+                parseInt(results.cpu) > 100 ? 100 : parseInt(results.cpu),
+              ];
             } else {
-              tmp.push([tmp.length, parseInt(results.cpu)]);
+              tmp.push([
+                tmp.length,
+                parseInt(results.cpu) > 100 ? 100 : parseInt(results.cpu),
+              ]);
             }
             return tmp;
           } else {
-            return [[0, parseInt(results.cpu)]];
+            return [
+              [0, parseInt(results.cpu) > 100 ? 100 : parseInt(results.cpu)],
+            ];
           }
         });
       })
@@ -105,8 +121,8 @@ function Stats() {
   useEffect(() => {
     getServer1Data();
     getServer2Data();
-    setInterval(getServer1Data, 1000);
-    setInterval(getServer2Data, 1000);
+    setInterval(getServer1Data, 1500);
+    setInterval(getServer2Data, 1500);
   }, []);
 
   /**

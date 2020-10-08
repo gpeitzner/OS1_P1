@@ -126,7 +126,7 @@ static int my_proc_show(struct seq_file *m, void *v)
 	t_idle = idle + iowait;
 	t_usage = (t_total - t_idle) - t_usage0;
 	t_usage0 = t_total - t_idle;
-	cpu_usage = ((t_usage * 100) / t_total) / 1000000000;
+	cpu_usage = ((t_usage * 100) / t_total) / 10000000000;
 	seq_printf(m, "%ld;%lld", ram_usage, cpu_usage);
 	return 0;
 }
