@@ -1,4 +1,4 @@
-# SO1_Proyecto1
+# OS1_P1
 
 ## Client
     1. Insert path.
